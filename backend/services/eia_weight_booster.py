@@ -29,7 +29,7 @@ def _load_eia_towers() -> Dict[int, List[Tuple[float, float, str]]]:
     try:
         conn = sqlite3.connect(str(DB_PATH))
         rows = conn.execute(
-            "SELECT mnc, lat, lon FROM cell_towers WHERE source='EIA' AND mcc=220"
+            "SELECT mnc, lat, lon FROM cell_towers WHERE source IN ('EIA','EIA_CAL') AND mcc=220"
         ).fetchall()
         conn.close()
 

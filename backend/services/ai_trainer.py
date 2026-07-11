@@ -288,7 +288,7 @@ def _calibrate_with_eia(prof: OperatorProfile, mnc: int, lat: float, lon: float)
     try:
         conn = sqlite3.connect(str(DB_PATH))
         rows = conn.execute(
-            "SELECT lat, lon FROM cell_towers WHERE source='EIA' AND mnc=? AND mcc=220",
+            "SELECT lat, lon FROM cell_towers WHERE source IN ('EIA','EIA_CAL') AND mnc=? AND mcc=220",
             (mnc,)
         ).fetchall()
         conn.close()

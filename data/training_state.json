@@ -1,121 +1,137 @@
 {
   "version": 2,
-  "total_queries": 299,
-  "last_trained": 1783782626.9395483,
+  "total_queries": 510,
+  "last_trained": 1783784421.1148312,
   "convergence_score": 0.8375,
   "operators": {
     "5": {
-      "total_calls": 106,
+      "total_calls": 169,
       "region_accuracy": {
         "belgrade": 0.352
       },
       "region_calls": {
-        "belgrade": 1
+        "belgrade": 64
       },
       "eia_calibration_offset": [
-        0.06770511334945796,
-        0.00034984098883581734
+        0.06766444686842765,
+        0.0003562537901907977
       ],
       "region_calibration": {
         "belgrade": [
-          0.06762149999999778,
-          0.0003606249999998923
+          0.06766114421688549,
+          0.0003566797488604555
         ]
       },
       "v3": {
-        "calls": 106,
-        "total_error_km": 37.31199999999997,
-        "best_calls": 106,
-        "weight": 0.9978294318828538
+        "calls": 169,
+        "total_error_km": 59.487999999999765,
+        "best_calls": 169,
+        "weight": 0.9999209243370721
       },
       "v5": {
         "calls": 0,
         "total_error_km": 0.0,
         "best_calls": 0,
-        "weight": 0.0010852840585731025
+        "weight": 3.953783146388553e-05
       },
       "v7": {
         "calls": 0,
         "total_error_km": 0.0,
         "best_calls": 0,
-        "weight": 0.0010852840585731025
+        "weight": 3.953783146388553e-05
       }
     },
     "3": {
-      "total_calls": 128,
+      "total_calls": 212,
       "region_accuracy": {
-        "belgrade": 0.3100511461570742
+        "belgrade": 0.31000000733134747
       },
-      "region_calls": {},
+      "region_calls": {
+        "belgrade": 84
+      },
       "eia_calibration_offset": [
-        0.05731536582244507,
-        0.030803669304490466
+        0.057307228480996945,
+        0.030800824762576357
       ],
-      "region_calibration": {},
+      "region_calibration": {
+        "belgrade": [
+          0.057307010011472835,
+          0.030800745136828376
+        ]
+      },
       "v3": {
-        "calls": 127,
-        "total_error_km": 39.37,
-        "best_calls": 128,
-        "weight": 0.978135131948326
+        "calls": 211,
+        "total_error_km": 65.41000000000018,
+        "best_calls": 212,
+        "weight": 0.9782605343363601
       },
       "v5": {
         "calls": 1,
         "total_error_km": 9.52,
         "best_calls": 0,
-        "weight": 0.02173633626551836
+        "weight": 0.02173912298525245
       },
       "v7": {
         "calls": 0,
         "total_error_km": 0.0,
         "best_calls": 0,
-        "weight": 0.00012853178615562246
+        "weight": 3.4267838740163324e-07
       }
     },
     "1": {
-      "total_calls": 62,
+      "total_calls": 124,
       "region_accuracy": {
         "belgrade": 0.22300000000000003
       },
-      "region_calls": {},
+      "region_calls": {
+        "belgrade": 62
+      },
       "eia_calibration_offset": [
-        0.0,
-        0.0
+        -0.009509986692896412,
+        0.07339889656384975
       ],
-      "region_calibration": {},
+      "region_calibration": {
+        "belgrade": [
+          -0.009460173389132968,
+          0.07784359554795507
+        ]
+      },
       "v3": {
-        "calls": 62,
-        "total_error_km": 13.826000000000016,
-        "best_calls": 62,
-        "weight": 0.9956227876140429
+        "calls": 124,
+        "total_error_km": 27.65199999999997,
+        "best_calls": 124,
+        "weight": 0.9999768208022873
       },
       "v5": {
         "calls": 0,
         "total_error_km": 0.0,
         "best_calls": 0,
-        "weight": 0.002188606192978515
+        "weight": 1.1589598856217559e-05
       },
       "v7": {
         "calls": 0,
         "total_error_km": 0.0,
         "best_calls": 0,
-        "weight": 0.002188606192978515
+        "weight": 1.1589598856217559e-05
       }
     },
     "7": {
-      "total_calls": 3,
+      "total_calls": 5,
       "region_accuracy": {
         "belgrade": 0.22300000000000003
       },
-      "region_calls": {},
+      "region_calls": {
+        "belgrade": 2
+      },
       "eia_calibration_offset": [
         0.0,
         0.0
       ],
       "region_calibration": {},
       "v3": {
-        "calls": 3,
-        "total_error_km": 0.669,
-        "best_calls": 3,
+        "calls": 5,
+        "total_error_km": 1.115,
+        "best_calls": 5,
         "weight": 1.0
       },
       "v5": {
