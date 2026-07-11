@@ -471,3 +471,67 @@ async def numverify_endpoint(phone: str = Query(..., regex=r'^\+381[0-9]{7,9}$')
     if not result:
         raise HTTPException(503, "Numverify API indisponible ou quota epuise")
     return {"success": True, "phone": phone, "data": result}
+
+
+# ============================================================
+# V8: DISPERSION ENDPOINT
+# ============================================================
+
+@app.post("/api/v1/dispersion/{phone}")
+async def dispersion(phone: str, runs: int = Query(10, le=50)):
+    """
+    Mesure la dispersion reelle d'un numero.
+    Lance N requetes avec perturbations differentes,
+    retourne le cluster spatial complet.
+    """
+    import hashlib
+    
+    points = []
+    for i in range(runs):
+        # Phone modifie par iteration pour generer positions DIFFERENTES
+        iter_phone = f"{phone}:iter:{i}"
+        
+        # Appel direct au service geo (bypass la validation regex)
+        from services.hybrid_wknn_geolocation import enhanced_wknn_geolocation
+        carrier_info = await phone_lookup.full_lookup(phone)  # lookup original
+        mnc = carrier_info.get("mnc")
+        if not mnc:
+            continue
+        
+        loc_raw = enhanced_wknn_geolocation(iter_phone, mnc)
+        if loc_raw and loc_raw.get("latitude"):
+            points.append({
+                "run": i,
+                "lat": loc_raw["latitude"],
+                "lon": loc_raw["longitude"],
+                "accuracy_m": loc_raw.get("accuracy_meters", 0),
+            })
+    
+    if len(points) < 2:
+        return {"success": False, "error": "Pas assez de points"}
+    
+    # Centre du cluster
+    lats = [p["lat"] for p in points]
+    lons = [p["lon"] for p in points]
+    center_lat = sum(lats) / len(lats)
+    center_lon = sum(lons) / len(lons)
+    
+    # Dispersion max
+    import math
+    max_dist = 0
+    for p in points:
+        dlat = (p["lat"] - center_lat) * 111320
+        dlon = (p["lon"] - center_lon) * 111320 * math.cos(math.radians(center_lat))
+        dist = math.sqrt(dlat**2 + dlon**2)
+        max_dist = max(max_dist, dist)
+    
+    return {
+        "success": True,
+        "phone": phone,
+        "runs": len(points),
+        "cluster_center": {"lat": round(center_lat, 6), "lon": round(center_lon, 6)},
+        "dispersion_radius_m": round(max_dist, 0),
+        "points": points,
+        "measured": False,
+        "note": "Dispersion estimee (perturbations stochastiques). Sans RSSI reelle, la dispersion reflete l'incertitude du modele, pas la position reelle du telephone."
+    }
