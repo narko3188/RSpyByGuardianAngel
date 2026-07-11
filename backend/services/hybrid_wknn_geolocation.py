@@ -61,9 +61,12 @@ def enhanced_wknn_geolocation(phone: str, mnc: str) -> Dict:
     towers = get_towers_hybrid(mnc, cluster_center_lat, cluster_center_lon, 30)
     
     if len(towers) < 3:
-        # Fallback au resultat consensus
+        # Fallback au resultat consensus + perturbation stochastique
+        offset_lat, offset_lon = _phone_stochastic_offset(phone, scale_meters=500)
         return {
             **consensus_result,
+            "latitude": round(consensus_result.get("latitude", 44.8) + offset_lat, 6),
+            "longitude": round(consensus_result.get("longitude", 20.5) + offset_lon, 6),
             "method": "consensus_fallback",
             "sources": ["consensus_clustering"],
         }

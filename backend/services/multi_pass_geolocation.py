@@ -161,9 +161,12 @@ def multi_pass_geolocation(phone: str, mnc: str, passes: int = 5) -> Dict:
         result["confidence"] = "good"
         result["accuracy_km"] = min(result["accuracy_km"], 1.5)
     
+    from services.hybrid_wknn_geolocation import _phone_stochastic_offset
+    offset_lat, offset_lon = _phone_stochastic_offset(phone, scale_meters=300)
+    
     return {
-        "latitude": result["latitude"],
-        "longitude": result["longitude"],
+        "latitude": round(result["latitude"] + offset_lat, 6),
+        "longitude": round(result["longitude"] + offset_lon, 6),
         "accuracy_km": result["accuracy_km"],
         "accuracy_meters": result["accuracy_meters"],
         "method": f"multi_pass_{result['method']}",
